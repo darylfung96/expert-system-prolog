@@ -27,7 +27,7 @@ rule(( problem_type(complex_problem, X) :-
 rule(( problem_type(intermediate_problem, X) :-
 	 problem_specific(logic, X),  use_frameworks ), 100).				%TODO
 rule(( problem_type(intermediate_problem, X) :-
-	problem_specific(, X), ), 100).										%TODO
+	problem_specific(logic, X), ), 100).										%TODO
 %basic
 rule(( problem_type(basic_problem, X) :-
 	 problem_specific(sort, X), small_size), 100).
@@ -43,14 +43,28 @@ rule(( problem_type(basic_problem, X) :-
 
 
 %%%problem specific%%%
-rule(( problem_specific(ai_related, high_dimension) :-
+%ai_related%
+rule(( problem_specific(ai_related, ai_high_dimension) :-
 	  high_dimension_input, gpu_programming ), 100).
-rule(( problem_specific(ai_related, high_dimension) :-
-	  high_dimension_input, cpu_programming ), 60).
+rule(( problem_specific(ai_related, ai_high_dimension) :-
+	  high_dimension_input, not(gpu_programming) ), 70).
+rule(( problem_specific(ai_related, ai_low_dimension) :-
+	  not(high_dimension_input) ), 100).
+%game_theory%
+rule(( problem_specific(game_theory, gt_adversarial) :-
+	  adversarial ), 100).
+%logic%
+rule(( problem_specific(logic, logic_related) :-
+	  (first_order_logic;propositional_logic) ), 100).
+%sort%
+rule(( problem_specific(sort, sort_time_save) :-
+	  limited_time, fast_performance), 100).
 %
-rule(( problem_specific(ai_related, low_dimension) :-
-	  big_data,  ), 100).
-
+rule(( problem_specific(sort, sort_space_space) :-
+	  limited_space, not(limited_time) ), 100).
+%
+rule(( problem_specific(sort, sort_space_space) :-
+	  limited_space, limited_time ), 40).
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -63,12 +77,18 @@ rule(solution())
 askable(trainable).
 askable(high_dimension_input).
 askable(gpu_programming).
+askable(adversarial).
+askable(first_order_logic).
+askable(propositional_logic).
+
 
 askable(problem_range(X)).
 
 askable(perfect_information).
 
 askable(limited_time).
+askable(fast_performance).
+askable(limited_space).
 askable(group_work).
 askable(multiple_server).
 askable(recursion).
