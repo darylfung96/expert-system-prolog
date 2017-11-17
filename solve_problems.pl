@@ -5,13 +5,13 @@ rule(( solve_problems(Advice) :-
 	complexity(Y, X), solution(Y, X, Advice) ), 100).
 
 %%%rules to know what complexity is the problem%%%
-rule(( complexity(complex, X) :-
+rule(( complexity(high_complexity, X) :-
 	problem_type(complex_problem, X), problem_range(extremely_broad)), 100).
-rule(( complexity(complex, X) :-
-	problem_type(complex_problem, X), problem_range(broad) ), 80).
-rule(( complexity(intermediate, X) :-
+rule(( complexity(high_complexity, X) :-
+	problem_type(complex_problem, X), not(problem_range(extremely_broad)) ), 80).
+rule(( complexity(intermediate_complexity, X) :-
 	 problem_type(intermediate_problem, X), problem_range(medium) ), 100).
-rule(( complexity(basic, X) :-
+rule(( complexity(basic_complexity, X) :-
 	 problem_type(basic_problem, X), problem_range(small) ), 100).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
@@ -27,7 +27,7 @@ rule(( problem_type(complex_problem, X) :-
 rule(( problem_type(intermediate_problem, X) :-
 	 problem_specific(logic, X),  use_frameworks ), 100).				%TODO
 rule(( problem_type(intermediate_problem, X) :-
-	problem_specific(logic, X), ), 100).										%TODO
+	problem_specific(logic, X) ), 100).										%TODO
 %basic
 rule(( problem_type(basic_problem, X) :-
 	 problem_specific(sort, X), small_size), 100).
@@ -69,7 +69,13 @@ rule(( problem_specific(sort, sort_space_space) :-
 
 
 %solutions
-rule(solution())
+rule(solution(high_complexity, ai_high_dimension, 'a'), 100).
+rule(solution(high_complexity, ai_low_dimension, 'b'), 100).
+rule(solution(high_complexity, gt_adversarial, 'c'), 100).
+rule(solution(intermediate_complexity, logic_related, 'd'), 100).
+rule(solution(basic_complexity, sort_time_save, 'e'), 100).
+rule(solution(basic_complexity, sort_space_save, 'f'), 100).
+
 
 
 
