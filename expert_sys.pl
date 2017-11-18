@@ -37,7 +37,7 @@ rule(( meetup_location(student_organization) :-
 %if personality_type(self_improving) && like(music)
 %then hobby(music)
 rule(( hobby(music) :-
-	personality_type(self_improving), like(music)), 100).
+	personality_type(self_improving), like(music)), 70).
 %if personality_type(artistic) && like(music)
 %then hobby(music)
 rule(( hobby(music) :-
@@ -75,7 +75,7 @@ rule(( personality_type(self_improving) :-
 rule(( personality_type(self_improving) :-
 	person_description(curiousity),  adventurous), 90).
 rule(( personality_type(self_improving) :-
-	person_description(consistent),  discipline), 100).
+	person_description(consistent),  discipline), 90).
 rule(( personality_type(artistic) :-
 	person_description(curiousity),  ambitious), 100).
 rule(( personality_type(artistic) :-
@@ -120,6 +120,18 @@ rule(( person_description(energetic) :-
 
 
 %%%%%%%%%%%%%%%%%%%%%
+
+
+%solution%
+rule( solution(gym, 'You should meet new people at the gym'), 100).
+rule( solution(beach, 'You should meet new people at the beach'), 100).
+rule( solution(library, 'You should meet new people at the library'), 100).
+rule( solution(bar, 'You should meet new people at the bar'), 100).
+rule( solution(club, 'You should meet new people at the club'), 100).
+rule( solution(student_organization, 'You should meet new people at a student_organization'), 100).
+
+
+%%%%%%%%%%%
 askable(environment(X)).
 askable(like(X)).
 
