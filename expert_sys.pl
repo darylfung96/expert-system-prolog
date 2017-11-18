@@ -111,7 +111,7 @@ rule(( person_description(enthusiastic) :-
 %if steady && uniform
 %then person_description(consistent)
 rule(( person_description(consistent) :-
-	steady, uniform), 100).
+	do_things_steadily, do_things_uniformly), 100).
 %if active && lively
 %then person_description(energetic)
 rule(( person_description(energetic) :-
@@ -145,7 +145,7 @@ askable(love_doing_things_yourself).
 askable(eager_to_learn).
 askable(like_thinking_new_ideas).
 askable(high_interest).
-askable(steady).
-askable(uniform).
+askable(do_things_steadily).
+askable(do_things_uniformly).
 askable(active).
 askable(lively).
