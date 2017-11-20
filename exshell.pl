@@ -2,11 +2,11 @@
 %%%
 %%% This is one of the example programs from the textbook:
 %%%
-%%% Artificial Intelligence: 
+%%% Artificial Intelligence:
 %%% Structures and strategies for complex problem solving
 %%%
 %%% by George F. Luger and William A. Stubblefield
-%%% 
+%%%
 %%% Corrections by Christopher E. Davis (chris2d@cs.unm.edu)
 %%%
 %%% These programs are copyrighted by Benjamin/Cummings Publishers.
@@ -14,9 +14,9 @@
 %%% We offer them for use, free of charge, for educational purposes only.
 %%%
 %%% Disclaimer: These programs are provided with no warranty whatsoever as to
-%%% their correctness, reliability, or any other property.  We have written 
+%%% their correctness, reliability, or any other property.  We have written
 %%% them for specific educational purposes, and have made no effort
-%%% to produce commercial quality computer programs.  Please do not expect 
+%%% to produce commercial quality computer programs.  Please do not expect
 %%% more of them then we have intended.
 %%%
 %%% This code has been tested with SWI-Prolog (Multi-threaded, Version 5.2.13)
@@ -32,7 +32,7 @@
 % with certainty factor; prints results; asks user if they would like a
 % trace.
 
-solve(Goal) :- 
+solve(Goal) :-
     init,
     solve(Goal,C,[],1),
     nl,write('Solved '),write(Goal),
@@ -49,13 +49,13 @@ init :- retractm(fact(X)), retractm(untrue(X)).
 % certainty factor of final conclusion; Rulestack is stack of
 % rules, used in why queries, Cutoff_context is either 1 or -1
 % depending on whether goal is to be proved true or false
-% (e.g. not Goal requires Goal be false in oreder to succeed).
+% (e.g. not Goal requires Goal be false in order to succeed).
 
 % 1
 solve(true,100,Rules,_).
 
 % 2
-solve(A,100,Rules,_) :- 
+solve(A,100,Rules,_) :-
     fact(A).
 
 % 3
@@ -63,35 +63,35 @@ solve(A,-100,Rules,_) :-
     untrue(A).
 
 % 4
-solve(not(A),C,Rules,T) :- 
+solve(not(A),C,Rules,T) :-
     T2 is -1 * T,
     solve(A,C1,Rules,T2),
     C is -1 * C1.
 
 % 5
-solve((A,B),C,Rules,T) :- 
-    solve(A,C1,Rules,T), 
+solve((A,B),C,Rules,T) :-
+    solve(A,C1,Rules,T),
     above_threshold(C1,T),
     solve(B,C2,Rules,T),
     above_threshold(C2,T),
     minimum(C1,C2,C).
 
 % 6
-solve(A,C,Rules,T) :- 
-    rule((A :- B),C1), 
+solve(A,C,Rules,T) :-
+    rule((A :- B),C1),
     solve(B,C2,[rule(A,B,C1)|Rules],T),
     C is (C1 * C2) / 100,
     above_threshold(C,T).
 
 % 7
-solve(A,C,Rules,T) :- 
+solve(A,C,Rules,T) :-
     rule((A), C),
     above_threshold(C,T).
 
 % 8
-solve(A,C,Rules,T) :- 
-    askable(A), 
-    not(known(A)), 
+solve(A,C,Rules,T) :-
+    askable(A),
+    not(known(A)),
     ask(A,Answer),
     respond(Answer,A,C,Rules).
 
@@ -103,19 +103,19 @@ solve(A,C,Rules,T) :-
 % displaying help (help).
 % Invalid responses are detected and the query is repeated.
 
-respond(Bad_answer,A,C,Rules) :- 
+respond(Bad_answer,A,C,Rules) :-
     not(member(Bad_answer,[help, yes,no,why,how(_)])),
     write('answer must be either help, (y)es, (n)o, (h)ow or (w)hy'),nl,nl,
     ask(A,Answer),
     respond(Answer,A,C,Rules).
 
-respond(yes,A,100,_) :- 
+respond(yes,A,100,_) :-
     asserta(fact(A)).
 
-respond(no,A,-100,_) :- 
+respond(no,A,-100,_) :-
     asserta(untrue(A)).
 
-respond(why,A,C,[Rule|Rules]) :- 
+respond(why,A,C,[Rule|Rules]) :-
     display_rule(Rule),
     ask(A,Answer),
     respond(Answer,A,C,Rules).
@@ -125,12 +125,12 @@ respond(why,A,C,[]) :-
     ask(A,Answer),
     respond(Answer,A,C,[]).
 
-respond(how(Goal),A,C,Rules) :- 
+respond(how(Goal),A,C,Rules) :-
     respond_how(Goal),
     ask(A,Answer),
     respond(Answer,A,C,Rules).
 
-respond(help,A,C,Rules) :- 
+respond(help,A,C,Rules) :-
     print_help,
     ask(A,Answer),
     respond(Answer,A,C,Rules).
@@ -139,7 +139,7 @@ respond(help,A,C,Rules) :-
 % Writes Query and reads the Answer.  Abbreviations (y, n, h, w) are
 % trnslated to appropriate command be filter_abbreviations
 
-ask(Query,Answer) :- 
+ask(Query,Answer) :-
     display_query(Query),
     read(A),
     filter_abbreviations(A,Answer),!.
@@ -182,7 +182,7 @@ show_trace(_,_).
 % print_help
 % Prints a help screen.
 
-print_help :- 
+print_help :-
     write('Exshell allows the following responses to queries:'),nl,nl,
     write('   yes - query is known to be true.'),nl,
     write('   no - query is false.'),nl,
@@ -224,11 +224,11 @@ write_conjunction(A) :- write(A),flag_if_known(A),!, nl.
 % Called by write_conjunction, if Goal follows from current state
 % of working memory, prints an indication, with CF.
 
-flag_if_known(Goal) :- 
-    build_proof(Goal,C,_,1), 
+flag_if_known(Goal) :-
+    build_proof(Goal,C,_,1),
     write('     ***Known, Certainty = '),write(C).
 
-flag_if_known(A). 
+flag_if_known(A).
 
 % Predicates concerned with how queries.
 
@@ -236,21 +236,21 @@ flag_if_known(A).
 % calls build_proof to determine if goal follows from current state of working
 % memory.  If it does, prints a trace of reasoning, if not, so indicates.
 
-respond_how(Goal) :- 
+respond_how(Goal) :-
     build_proof(Goal,C,Proof,1),
     interpret(Proof),nl,!.
 
-respond_how(Goal) :- 
+respond_how(Goal) :-
     build_proof(Goal,C,Proof,-1),
     interpret(Proof),nl,!.
 
-respond_how(Goal) :- 
+respond_how(Goal) :-
     write('Goal does not follow at this stage of consultation.'),nl.
 
 % build_proof(Goal, CF, Proof, Cutoff_context).
 % Attempts to prove Goal, placing a trace of the proof in Proof.
 % Functins the same as solve, except it does not ask for unknown information.
-% Thus, it only proves goals that follow from the rule base and the current 
+% Thus, it only proves goals that follow from the rule base and the current
 % contents of working memory.
 
 build_proof(true,100,(true,100),_).
@@ -259,7 +259,7 @@ build_proof(Goal, 100, (Goal :- given,100),_) :- fact(Goal).
 
 build_proof(Goal, -100, (Goal :- given,-100),_) :- untrue(Goal).
 
-build_proof(not(Goal), C, (not(Proof),C),T) :- 
+build_proof(not(Goal), C, (not(Proof),C),T) :-
     T2 is -1 * T,
     build_proof(Goal,C1,Proof,T2),
     C is -1 * C1.
@@ -272,7 +272,7 @@ build_proof((A,B),C,(ProofA, ProofB),T) :-
     minimum(C1,C2,C).
 
 build_proof(A, C, (A :- Proof,C),T) :-
-    rule((A :- B),C1), 
+    rule((A :- B),C1),
     build_proof(B, C2, Proof,T),
     C is (C1 * C2) / 100,
     above_threshold(C,T).
@@ -330,7 +330,7 @@ extract_body((Proof1,Proof2),(Body1,Body2)) :-
     extract_body(Proof2,Body2).
 
 extract_body((Goal :- Proof,C),Goal).
-    
+
 
 % Utility Predicates.
 
