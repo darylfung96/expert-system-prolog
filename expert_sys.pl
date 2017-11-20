@@ -34,18 +34,14 @@ rule(( meetup_location(student_organization) :-
 
 %hobby%
 
-%if personality_type(self_improving) && like(music) && not(ambitious)
-%then hobby(music)
-rule(( hobby(music) :-
-	personality_type(self_improving), like(music), not(ambitious)), 70).
+%if personality_type(artistic) && like(nature)
+%then hobby(nature)
+rule(( hobby(nature) :-
+	personality_type(artistic), like(nature)), 100).
 %if personality_type(self_improving) && like(music) && ambitious
 %then hobby(music)
 rule(( hobby(music) :-
-	personality_type(self_improving), like(music), ambitious), 90).
-%if personality_type(artistic) && like(music)
-%then hobby(music)
-rule(( hobby(music) :-
-	personality_type(artistic),  like(music)), 100).
+	personality_type(self_improving), like(music), ambitious), 100).
 %if personality_type(artistic) && like(music) && not(adventurous)
 %then hobby(music)
 rule(( hobby(music) :-
@@ -70,10 +66,7 @@ rule(( hobby(socialize) :-
 %then hobby(socialize)
 rule(( hobby(socialize) :-
 	personality_type(spontaneuous), like(talking)), 100).
-%if personality_type(artistic) && like(nature)
-%then hobby(nature)
-rule(( hobby(nature) :-
-	personality_type(artistic), like(nature)), 100).
+
 
 %%%%%%%%%%%%%%%%%%
 

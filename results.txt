@@ -1,0 +1,64 @@
+1.
+
+| ?- solve(meet_people(X)).
+ambitious? y.
+openess? y.
+like(music)? n.
+passionate? n.
+creative? n.
+discipline? y.
+irregular_person? y.
+like(reading)? y.
+environment(relax)? y.
+environment(loud)? n.
+
+Solved meet_people(You should meet new people at the library) With Certainty = 100.0
+
+It recommends to meet people at the library because the person likes to read and love to be in a relax environment. The person is also ambitious which means that they have a strong determination to success. They don't neccessary to need to like music or be creative to love to be in the library. A library is a quiet environment so not having a loud environment is one of the reason why the expert system recommend the library.
+
+
+2.
+
+| ?- solve(meet_people(X)).
+ambitious? y.
+openess? y.
+like(music)? y.
+environment(relax)? y.
+
+Solved meet_people(You should meet new people at the gym) With Certainty = 100.0
+
+The expert system recommend gym location because the person is determined to success and gym is one of a good location to release their stress and to gain more confident in themselves. Gyming usually requires great motivation and music can help boost productivity in the gym. It is a relax environment because gym helps elevate stress.
+
+3.
+
+| ?- solve(meet_people(X)).
+ambitious? n.
+passionate? y.
+like(learning)? n.
+discipline? n.
+creative? n.
+openess? y.
+like(talking)? y.
+environment(loud)? y.
+like(dancing)? n.
+irregular_person? y.
+
+Solved meet_people(You should meet new people at the bar) With Certainty = 85.0
+
+The expert system recommend the bar because this person has lots of passionate and very open to new things. This person also likes talking and prefers loud environment but doesn't really like dancing so this expert system decided to recommend the bar which has a loud environment and people who are open.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
