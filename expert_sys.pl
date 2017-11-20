@@ -34,14 +34,22 @@ rule(( meetup_location(student_organization) :-
 
 %hobby%
 
-%if personality_type(self_improving) && like(music)
+%if personality_type(self_improving) && like(music) && not(ambitious)
 %then hobby(music)
 rule(( hobby(music) :-
-	personality_type(self_improving), like(music)), 70).
+	personality_type(self_improving), like(music), not(ambitious)), 70).
+%if personality_type(self_improving) && like(music) && ambitious
+%then hobby(music)
+rule(( hobby(music) :-
+	personality_type(self_improving), like(music), ambitious), 90).
 %if personality_type(artistic) && like(music)
 %then hobby(music)
 rule(( hobby(music) :-
 	personality_type(artistic),  like(music)), 100).
+%if personality_type(artistic) && like(music) && not(adventurous)
+%then hobby(music)
+rule(( hobby(music) :-
+	personality_type(artistic),  like(music), not(adventurous)), 30).
 %if personality_type(self_improving) && like(reading)
 %then hobby(studying)
 rule(( hobby(studying) :-
@@ -49,7 +57,7 @@ rule(( hobby(studying) :-
 %if personality_type(artistic) && like(learning)
 %then hobby(studying)
 rule(( hobby(studying) :-
-	personality_type(artistic),  like(learning)), 100).
+	personality_type(artistic),  like(learning)), 80).
 %if personality_type(extravert) && like(talking)
 %then hobby(socialize)
 rule(( hobby(socialize) :-
@@ -57,7 +65,7 @@ rule(( hobby(socialize) :-
 %if personality_type(self_improving) && like(talking)
 %then hobby(socialize)
 rule(( hobby(socialize) :-
-	personality_type(self_improving), like(talking)), 100).
+	personality_type(self_improving), like(talking)), 90).
 %if personality_type(spontaneuous) && like(talking)
 %then hobby(socialize)
 rule(( hobby(socialize) :-
@@ -70,22 +78,55 @@ rule(( hobby(nature) :-
 %%%%%%%%%%%%%%%%%%
 
 %personality_type%
+
+%if person_description(indepenent) && openess && ambitious
+%then personality_type(self_improving)
 rule(( personality_type(self_improving) :-
-	person_description(independent),  openess, ambitious), 100).
+	person_description(independent), openess, ambitious), 100).
+%if person_description(curiousity) && adventurous
+%then personality_type(self_improving)
 rule(( personality_type(self_improving) :-
 	person_description(curiousity),  adventurous), 90).
+%if person_description(consistent) && discipline && not(irregular_person)
+%then personality_type(self_improving)
 rule(( personality_type(self_improving) :-
-	person_description(consistent),  discipline), 90).
+	person_description(consistent),  discipline, not(irregular_person)), 90).
+%if person_description(curiousity) && ambitious && not(irregular_person)
+%then personality_type(artistic)
 rule(( personality_type(artistic) :-
-	person_description(curiousity),  ambitious), 100).
+	person_description(curiousity),  ambitious, not(irregular_person)), 80).
+%if person_description(innovative) && adventurous
+%then personality_type(artistic)
 rule(( personality_type(artistic) :-
 	person_description(innovative),  adventurous), 100).
+%if person_description(energetic) && openess
+%then personality_type(extravert)
 rule(( personality_type(extravert) :-
-	person_description(energetic),  adventurous), 100).
+	person_description(energetic), openess), 85).
+%if person_description(energetic) && openess && not(discipline)
+%then personality_type(extravert)
+rule(( personality_type(extravert) :-
+	person_description(energetic), openess, not(discipline)), 70).
+%if person_description(enthusiastic) && not that ambitious
+%then personality_type(spontaneous)
 rule(( personality_type(spontaneuous) :-
-	person_description(enthusiastic),  go_with_flow), 100).
+	person_description(enthusiastic), not(ambitious)), 50).
+%if person_description(enthusiastic) && irregular
+%then personality_type(spontaneous)
 rule(( personality_type(spontaneuous) :-
-	person_description(energetic),  ambitious), 90).
+	person_description(enthusiastic),  irregular_person), 70).
+%if person_description(enthusiastic) && not(openess) && irregular
+%then personality_type(spontaneous)
+rule(( personality_type(spontaneuous) :-
+	person_description(enthusiastic), not(openess), irregular_person), 50).
+%if person_description(enthusiastic) && not(ambitious) && irregular
+%then personality_type(spontaneous)
+rule(( personality_type(spontaneuous) :-
+	person_description(enthusiastic), not(ambitious), irregular_person), 40).
+%if person_description(energetic) && ambitious
+%then personality_type(spontaneous)
+rule(( personality_type(spontaneuous) :-
+	person_description(energetic),  ambitious, adventurous), 90).
 
 %%%%%%%%%%%%%%%%%%
 
@@ -95,27 +136,35 @@ rule(( personality_type(spontaneuous) :-
 %if love_doing_things_yourself
 %then person_description(independent)
 rule(( person_description(independent) :-
-	love_doing_things_yourself), 100).
+	ambitious), 100).
 %if eager_to_learn
 %then person_description(curiousity)
 rule(( person_description(curiousity) :-
-	eager_to_learn), 100).
+	passionate, like(learning)), 100).
 %if like_thinking_new_ideas
 %then person_description(innovative)
 rule(( person_description(innovative) :-
-	like_thinking_new_ideas), 100).
+	creative, passionate), 100).
+%if like_thinking_new_ideas
+%then person_description(innovative)
+rule(( person_description(innovative) :-
+	creative, not(passionate)), 50).
 %if high_interest
 %then person_description(enthusiastic)
 rule(( person_description(enthusiastic) :-
-	high_interest), 100).
+	passionate), 100).
 %if steady && uniform
 %then person_description(consistent)
 rule(( person_description(consistent) :-
-	do_things_steadily, do_things_uniformly), 100).
+	passionate), 100).
+%if not(creative) && discipline
+%then person_description(consistent)
+rule(( person_description(consistent) :-
+	not(creative), discipline), 70).
 %if active && lively
 %then person_description(energetic)
 rule(( person_description(energetic) :-
-	active, lively), 100).
+	passionate), 100).
 %
 
 
@@ -136,16 +185,9 @@ askable(environment(X)).
 askable(like(X)).
 
 askable(openess).
+askable(creative).
 askable(ambitious).
 askable(adventurous).
+askable(irregular_person).
 askable(discipline).
-askable(go_with_flow).
-
-askable(love_doing_things_yourself).
-askable(eager_to_learn).
-askable(like_thinking_new_ideas).
-askable(high_interest).
-askable(do_things_steadily).
-askable(do_things_uniformly).
-askable(active).
-askable(lively).
+askable(passionate).
