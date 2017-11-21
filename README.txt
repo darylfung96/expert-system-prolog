@@ -8,7 +8,7 @@ Answer for the solve() predicates:
 2. If a goal is true, then its certainty will be 100.
 3. If a goal is false, then its certainty will be -100.
 4. If goal is not true, we will change the cutoff_context and try to prove it false, and set the current certainty factor as negation to the certainty factor returned from proving it false.
-5. It calculates the certainty that two events (A,B) would happen and we get the minimum of all the certainty(C,C1,C2) because its a conjunction rule and make sure that both the certainty for A and the certainty for B is above 0.2.
-6.
-7. It makes sure that there is a rule for this goal, and that the certainty for this rule is above 0.2.
-8. Make the goal as askable and if goal is not defined yet, this ask the user and wait for them to respond either yes or no and then we will be able to get the certainty for this goal based on the user response.
+5. It calculates the certainty that two events (A,B) would happen and we get the minimum of all the certainty(C,C1,C2) because its a conjunction rule and make sure that both the certainty for A and the certainty for B is above 0.2 to be consider as a belief of truth.
+6. This is a propagation rule, getting the probability of A * the probability of B for the certainty factor and making sure that the certainty factor is above 0.2 to be consider as a belief of truth.
+7. It makes sure that there is a rule for this goal, and that the certainty for this rule is above 0.2 to be consider as a belief of truth.
+8. Ask the user about the goal if the goal has no define answer yet(true or false) and wait for them to respond either yes or no and then we will be able to get the certainty for this goal based on the user response.

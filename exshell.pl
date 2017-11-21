@@ -78,8 +78,8 @@ solve((A,B),C,Rules,T) :-
 
 % 6
 solve(A,C,Rules,T) :-
-    rule((A :- B),C1),
-    solve(B,C2,[rule(A,B,C1)|Rules],T),
+    rule((A :- B),C1),						%A=B, C1=certainty
+    solve(B,C2,[rule(A,B,C1)|Rules],T),		% B with rule(if B then A, C1=certainty) of C2=certainty
     C is (C1 * C2) / 100,
     above_threshold(C,T).
 
