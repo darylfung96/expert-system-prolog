@@ -153,7 +153,7 @@ rule(( person_description(consistent) :-
 %if not(creative) && discipline
 %then person_description(consistent)
 rule(( person_description(consistent) :-
-	not(creative), discipline), 70).
+	not(creative), discipline), 40).
 %if active && lively
 %then person_description(energetic)
 rule(( person_description(energetic) :-
