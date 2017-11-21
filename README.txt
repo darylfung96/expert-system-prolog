@@ -11,4 +11,4 @@ Answer for the solve() predicates:
 5. It calculates the certainty that two events (A,B) would happen and we get the minimum of all the certainty(C,C1,C2) because its a conjunction rule and make sure that both the certainty for A and the certainty for B is above 0.2.
 6.
 7. It makes sure that there is a rule for this goal, and that the certainty for this rule is above 0.2.
-8.
+8. Make the goal as askable and if goal is not defined yet, this ask the user and wait for them to respond either yes or no and then we will be able to get the certainty for this goal based on the user response.
